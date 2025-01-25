@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "sans-serif";
+}
+
+body {
+  height: 100vh;
+}
+
+nav.menu-lateral {
+  width: 150px;
+  height: 100%;
+  padding: 40px 0px 40px 0%;
+  background-color: #202020;
+  box-shadow: 3px 0 0 #7B68EE;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  transition: 0.2s;
+}
+
+nav.menu-lateral.expandir {
+  width: 300px;
+}
+
+.btn-expandir {
+  width: 100%;
+  padding-left: 10px;
+}
+
+.btn-expandir > i {
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+ul {
+  height: 100%;
+  list-style-type: none;
+}
+
+ul li.item-menu {
+  transition: 0.2s;
+}
+
+ul li.ativo {
+  background-color: #7B68EE;
+}
+
+ul li.item-menu:hover {
+  background: #7B68EE;
+}
+
+ul li.item-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 20px;
+  padding: 20px 4%;
+  display: flex;
+  margin-bottom: 20px;
+  line-height: 40px;
+}
+
+ul li.item-menu a .txt-link {
+  margin-left: 70px;
+  font-family: "Great Vibes";
+  transition: 0.5s;
+  opacity: 0;
+}
+
+nav.menu-lateral.expandir .txt-link {
+  margin-left: 40px;
+  opacity: 1;
+}
+
+ul li.item-menu a .icon > i {
+  font-size: 40px;
+  margin-left: 8px;
+}
+.conteudo {
+  margin-left: 100px; /* Espaço para não cobrir o menu lateral */
+  padding: 20px; /* Adiciona espaçamento interno */
+  max-width: calc(100% - 100px); /* Garante que a largura não ultrapasse a largura disponível (tira a largura do menu) */
+  box-sizing: border-box; /* Para que o padding não afete a largura total */
+}
+nav.menu-lateral div .btn-expandir{
+  margin-left: 10px;
+
+}
+
