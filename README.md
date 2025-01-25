@@ -39,4 +39,6 @@ Este é um sistema simples e eficiente para gerenciar agendamentos de um salão 
 ├── admin/                      # Área administrativa
 │   ├── index.php               # ainda não foi criado o menu e os link
 │   ├── atualiza_status.php     # Alteração do status dos agendamentos se concluido cancelado ou pendente
+│   ├── gerenciar_servicos.php  # onde coloca os serviços do salão como corte, escova e penteado ETC...
+│   ├── lista_agendamentos.php  # vai esta na pagina index de entrada onde ve os clientes agendados
 └── └──deletar.php              # Exclusão de agendamentos
