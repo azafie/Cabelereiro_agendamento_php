@@ -8,11 +8,13 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
+
 <div class="container mt-5">
     <h1 class="text-center mb-4">Lista de Agendamentos</h1>
 
     <?php
-    include '../conexao.php';
+    include_once 'verifica_login.php';
+    include_once '../conexao.php';
 
     $itens_por_pagina = 10;
     $pagina_atual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;

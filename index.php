@@ -1,90 +1,59 @@
+<?php
+  // Determina qual página carregar (padrão é 'lista_agendamentos')
+  $page = isset($_GET['page']) ? $_GET['page'] : 'lista_agendamentos'; // Se não for especificado, exibe 'agendar.php' por padrão
+?>
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agendamento</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        function atualizarHorarios() {
-            var dataSelecionada = document.getElementById("data").value;
-            $.get("get_horarios.php", { data: dataSelecionada }, function(response) {
-                $("#horario").html(response);
-            });
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="Viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" type="text/css" href="estilo.css">
+    <title>Salão</title>
+  </head>
+  <body>
+    <nav class="menu-lateral">
+      <div class="btn-expandir">
+        <i class="bi bi-list-stars" id="btn-exp"></i>
+        <ul>
+          <li class="item-menu <?php echo ($page == 'agendamentos' ? 'ativo' : ''); ?>">
+            <a href="index.php?page=agendamentos">
+              <span class="icon"><i class="bi bi-journal-bookmark-fill"></i></span>
+              <span class="txt-link">Agendar</span>
+            </a>
+          </li>
+          <li class="item-menu <?php echo ($page == 'fila' ? 'ativo' : ''); ?>">
+            <a href="index.php?page=fila">
+              <span class="icon"><i class="bi bi-person-lines-fill"></i></span>
+              <span class="txt-link">Fila</span>
+            </a>
+          </li>
+          <li class="item-menu <?php echo ($page == 'quem_somos' ? 'ativo' : ''); ?>">
+            <a href="index.php?page=quem_somos">
+              <span class="icon"><i class="bi bi-postcard-heart"></i></span>
+              <span class="txt-link">Quem Somos</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="conteudo">
+      <?php
+        // Incluir o conteúdo de acordo com a página selecionada
+        if ($page == 'agendamentos') {
+          include('agendar.php'); // Lista de agendamentos
+        } elseif ($page == 'fila') {
+          include('fila.php'); // Gerenciar serviços
+        } elseif ($page == 'quem_somos') {
+          include('quem_somos.php'); // Página de deletar
+        } else {
+            include('agendar.php'); // agendar
         }
-    </script>
-</head>
-<body>
-<div class="container mt-5">
-    <h1 class="text-center mb-4">Agende seu horário</h1>
-    <form action="processa_agendamento.php" method="post" class="row g-3">
-        <div class="col-md-6">
-            <label for="data" class="form-label">Data:</label>
-            <input type="date" name="data" id="data" class="form-control" onchange="atualizarHorarios()" required>
-        </div>
+      ?>
+    </div>
 
-        <div class="col-md-6">
-            <label for="servico" class="form-label">Serviço:</label>
-            <select name="servico" id="servico" class="form-select">
-                <?php
-                include 'conexao.php';
-
-                $itens_por_pagina = 5;
-                $pagina_atual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
-                $offset = ($pagina_atual - 1) * $itens_por_pagina;
-
-                $sql = "SELECT id, nome FROM servicos LIMIT $itens_por_pagina OFFSET $offset";
-                $resultado = $conexao->query($sql);
-
-                if ($resultado->num_rows > 0) {
-                    while ($linha = $resultado->fetch_assoc()) {
-                        echo "<option value='" . $linha["id"] . "'>" . $linha["nome"] . "</option>";
-                    }
-                }
-
-                $sql_total = "SELECT COUNT(*) AS total FROM servicos";
-                $result_total = $conexao->query($sql_total);
-                $total_registros = $result_total->fetch_assoc()['total'];
-                $total_paginas = ceil($total_registros / $itens_por_pagina);
-
-                echo "<div class='mt-3'>";
-                for ($i = 1; $i <= $total_paginas; $i++) {
-                    echo "<a href='?pagina=$i' class='btn btn-link'>" . $i . "</a> ";
-                }
-                echo "</div>";
-
-                $conexao->close();
-                ?>
-            </select>
-        </div>
-
-        <div class="col-md-6">
-            <label for="nome" class="form-label">Nome:</label>
-            <input type="text" name="nome" id="nome" class="form-control" required>
-        </div>
-
-        <div class="col-md-6">
-            <label for="telefone" class="form-label">Telefone:</label>
-            <input type="text" name="telefone" id="telefone" class="form-control" required>
-        </div>
-
-        <div class="col-md-12">
-            <label for="horario" class="form-label">Horário:</label>
-            <select name="horario" id="horario" class="form-select">
-            </select>
-        </div>
-
-        <div class="col-md-12 text-center mt-4">
-            <input type="submit" value="Agendar" class="btn btn-primary">
-        </div>
-    </form>
-</div>
-
-<script>
-    // Chama a função para carregar os horários iniciais (para a data atual, se houver)
-    atualizarHorarios();
-</script>
-</body>
+    <script src="menu.js"></script>
+  </body>
 </html>

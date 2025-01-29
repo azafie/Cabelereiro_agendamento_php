@@ -1,5 +1,6 @@
 <?php
-include '../conexao.php';
+include_once 'verifica_login.php';
+include_once '../conexao.php';
 
 if (isset($_GET['id']) && isset($_GET['status'])) {
     $id = $_GET['id'];
@@ -9,7 +10,7 @@ if (isset($_GET['id']) && isset($_GET['status'])) {
     $stmt->bind_param("si", $status, $id);
 
     if ($stmt->execute()) {
-        header("Location: lista_agendamentos.php"); // Redireciona de volta para a lista
+        header("Location: index.php?page=lista_agendamentos"); // Redireciona de volta para a lista
         exit();
     } else {
         echo "Erro ao atualizar o status: " . $stmt->error;

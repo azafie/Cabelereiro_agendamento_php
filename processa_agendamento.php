@@ -25,7 +25,7 @@ $stmt->bind_param("ssssi", $nome, $telefone, $data, $horario, $servico);
 
 if ($stmt->execute()) {
     echo "Agendamento realizado com sucesso!";
-    header("Location: fila.php");
+    header("Location: index.php?page=fila");
 } else {
     echo "Erro ao agendar: " . $stmt->error;
 }

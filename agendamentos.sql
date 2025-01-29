@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 25-Jan-2025 às 02:50
+-- Tempo de geração: 29-Jan-2025 às 08:32
 -- Versão do servidor: 10.4.32-MariaDB
 -- versão do PHP: 8.0.30
 
@@ -54,9 +54,28 @@ CREATE TABLE `servicos` (
 --
 
 INSERT INTO `servicos` (`id`, `nome`, `duracao`) VALUES
-(1, 'corte', '01:00:00'),
-(2, 'pintura', '01:00:00'),
-(5, 'penteado', '00:50:00');
+(18, 'penteado', '01:00:00'),
+(19, 'unhas', '01:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL,
+  `usuario` varchar(50) NOT NULL,
+  `senha` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Extraindo dados da tabela `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `usuario`, `senha`) VALUES
+(2, 'azafie', '$2y$10$idlJ/WEtkOBO1qFIWVhLmum//KB17UVC6oKile6A1FTkf5gOfDsyC'),
+(8, 'aline', '$2y$10$kl235niM8so6YjKNhINw2ueMAPFKRlK9yYD7WYJZtSNnXd62C6SF.');
 
 --
 -- Índices para tabelas despejadas
@@ -67,13 +86,20 @@ INSERT INTO `servicos` (`id`, `nome`, `duracao`) VALUES
 --
 ALTER TABLE `agendamentos`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `servico_id` (`servico_id`);
+  ADD KEY `agendamentos_ibfk_1` (`servico_id`);
 
 --
 -- Índices para tabela `servicos`
 --
 ALTER TABLE `servicos`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `usuario` (`usuario`);
 
 --
 -- AUTO_INCREMENT de tabelas despejadas
@@ -83,13 +109,19 @@ ALTER TABLE `servicos`
 -- AUTO_INCREMENT de tabela `agendamentos`
 --
 ALTER TABLE `agendamentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT de tabela `servicos`
 --
 ALTER TABLE `servicos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT de tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restrições para despejos de tabelas
@@ -99,7 +131,7 @@ ALTER TABLE `servicos`
 -- Limitadores para a tabela `agendamentos`
 --
 ALTER TABLE `agendamentos`
-  ADD CONSTRAINT `agendamentos_ibfk_1` FOREIGN KEY (`servico_id`) REFERENCES `servicos` (`id`);
+  ADD CONSTRAINT `agendamentos_ibfk_1` FOREIGN KEY (`servico_id`) REFERENCES `servicos` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
