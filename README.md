@@ -1,3 +1,5 @@
+como funciona https://www.youtube.com/watch?v=dABqXJRNAYQ 
+
 
 ## Funcionalidades
 
